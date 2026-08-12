@@ -3,18 +3,24 @@
 A local module for incremental, streaming LLM responses using Ollama using the ReTiCo framework.
 
 ## Installation and Requirements
-To use the module you first need to install the retico-core package:
-* Install retico_core:
-```pip install git+https://github.com/retico-team/retico-core.git```
-
-Right after that, install the retico-ollama package:
+To use the module you first need to install the retico-ollama package:
 * Install the retico-ollama:
 ```pip install git+https://github.com/retico-team/retico-ollama.git```
+
+If you plan to use microphone input (see Microphone examples bellow), install the optional `mic` extra as well:
+
+```bash
+pip install "retico-ollama[mic] @ git+https://github.com/retico-team/retico-ollama.git"
+```
 
 You will also need Ollama installed and running locally with your chosen module:
 * Install Ollama on their official website
 ```https://ollama.com/download```
 
+Make sure to pull the model you want to use:
+```bash
+   ollama pull model-name
+```
 ## Modules
 
 ### `OllamaModule`
