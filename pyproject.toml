@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools==70", "setuptools-scm[simple]>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retico-ollama"
+dynamic = ["version"]
+authors = [
+    { name = "Dalton Bilau Goncalves", email = "daltonbilaugoncalves@gmail.com" }
+]
+
+dependencies = [
+    "retico-core>=0.2.10",
+    "ollama",
+]
+[project.optional-dependencies]
+mic = [
+    "retico-whisperasr",
+]
+requires-python = ">=3.8"
+description = "Retico module for incremental text generation using local LLMs via Ollama"
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = [
+    "retico",
+    "framework",
+    "incremental",
+    "ollama",
+    "llm",
+    "dialogue",
+    "language generation"
+]
+classifiers = [
+        "Development Status :: 2 - Pre-Alpha",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+    ]
