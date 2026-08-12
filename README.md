@@ -1,4 +1,4 @@
-# retico-hftranslate
+# retico-ollama
 
 A local module for incremental, streaming LLM responses using Ollama using the ReTiCo framework.
 
