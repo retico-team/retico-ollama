@@ -3,33 +3,34 @@
 A local module for incremental, streaming LLM responses using Ollama using the ReTiCo framework.
 
 ## Installation and Requirements
-To use the module you first need to install the retico-ollama package:
-* Install the retico-ollama:
+
+To use the Ollama module you first need to install the retico-ollama package:
+* Install retico-ollama:
+```pip install retico-ollama```
+
+  or, for the latest development version from GitHub:
 ```pip install git+https://github.com/retico-team/retico-ollama.git```
 
-If you plan to use microphone input (see Microphone examples bellow), install the optional `mic` extra as well:
+If you plan to use microphone input (see the microphone example below), install the optional `mic` extra as well:
+```pip install "retico-ollama[mic]"```
 
-```bash
-pip install "retico-ollama[mic] @ git+https://github.com/retico-team/retico-ollama.git"
-```
-
-You will also need Ollama installed and running locally with your chosen module:
-* Install Ollama on their official website
-```https://ollama.com/download```
+You will also need Ollama installed and running locally with your chosen model:
+* Install Ollama from the [official website](https://ollama.com/download)
 
 Make sure to pull the model you want to use:
 ```bash
-   ollama pull model-name
+ollama pull model-name
 ```
+
 ## Modules
 
 ### `OllamaModule`
-Incrementally generate LLM responses from text input (typed or transcribed), streaming tokens as they are produced.
+Incrementally generates LLM responses from text input (typed or transcribed), streaming tokens as they are produced.
 
 **Input options:** `keyboard`, `mic`
 
-The `keyboard` input attempts to stream partial input as it's typed and pre-warms the model between strokes. In an attempt to reduce token production when long prompts are made.
-Input `mic` waits for a commited speech-recognition result before generating.
+The `keyboard` input attempts to stream partial input as it's typed and pre-warms the model between strokes, in an attempt to reduce token production when long prompts are made.
+The `mic` input waits for a committed speech recognition result before generating.
 
 #### Arguments:
 
@@ -48,19 +49,16 @@ Input `mic` waits for a commited speech-recognition result before generating.
 * `top_p`(float): Top-p sampling, defaults to 0.9
 * `min_p`(float): Min-p sampling, defaults to 0.0
 * `speculative_delay` (float): seconds between speculative generation, defaults to '1.5'
-* `from_lang` (str): Source language to use, defaults to 'en'
-* `to_lang` (str): Target language to use, defaults to 'de'
 
 ### `TerminalInputModule`
-Reads line of text from terminal and emits them as TextIU into the pipeline. Used with OllamaModule 'keyboard' module to allow the user to type on the terminal.
+Reads lines of text from the terminal and emits them as TextIU into the pipeline. Used with OllamaModule's 'keyboard' mode to allow the user to type in the terminal.
 
 ### `TerminalOutputModule`
-Prints text from OllamaModule to the terminal token as they stream. Used for both 'keyboard' and 'mic' modes.
+Prints text from OllamaModule to the terminal as the tokens stream. Used for both 'keyboard' and 'mic' modes.
 
 ## Example Keyboard
 
 ```python
-import retico_core
 import time
 from retico_ollama import OllamaModule, TerminalInputModule, TerminalOutputModule
 
@@ -76,7 +74,6 @@ ollama.run()
 terminal_out.run()
 
 print("Network is running")
-# input()
 
 try:
     while True:
@@ -88,12 +85,11 @@ except KeyboardInterrupt:
 ```
 
 ## Example Microphone
+**Note:** The example uses `MicrophoneModule` from `retico_core` and `WhisperASRModule` from [retico-whisperasr](https://github.com/retico-team/retico-whisperasr), which is installed with the `mic` extra.
 
 ```python
-import retico_core
 import time
 from retico_core.audio import MicrophoneModule
-from retico_core.debug import DebugModule
 from retico_whisperasr import WhisperASRModule
 from retico_ollama import OllamaModule, TerminalOutputModule
 
@@ -112,12 +108,10 @@ ollama.run()
 terminal_out.run()
 
 print("Network is running")
-# input()
 
 try:
     while True:
         time.sleep(1)
-
 except KeyboardInterrupt:
     mic.stop()
     asr.stop()

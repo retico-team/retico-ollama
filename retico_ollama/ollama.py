@@ -234,9 +234,9 @@ class OllamaModule(retico_core.AbstractModule):
                     for iu in self.current_output:
                         self.commit(iu)
                         um.add_iu(iu, retico_core.UpdateType.COMMIT)
-                        end_iu = ResponseEndIU(
-                            creator=self, iuid=id(self), previous_iu=None
-                        )
+                    end_iu = ResponseEndIU(
+                        creator=self, iuid=id(self), previous_iu=None
+                    )
 
                     um.add_iu(end_iu, retico_core.UpdateType.ADD)
                     um.add_iu(end_iu, retico_core.UpdateType.COMMIT)
